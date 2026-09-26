@@ -1,6 +1,6 @@
 # Sabah Electric Inc. website
 
-Static, mobile-first marketing site for Sabah Electric Inc., led by Master Electrician Sabah Toma. It is designed to publish with GitHub Pages from the repository root.
+Static, mobile-first marketing site for Sabah Electric Inc., led by electrician Sabah Toma, with 30+ years of experience. It is designed to publish with GitHub Pages from the repository root.
 
 ## Files
 
@@ -31,7 +31,7 @@ When a custom domain is connected, update the form’s _next address in index.ht
 
 Edit the text and phone/email details in index.html. Replace service images in assets/ using the same filenames to preserve the layout. Keep the visual service photos described as illustrative until actual Sabah Electric project photos are available.
 
-The founder portrait panel currently uses initials because the LinkedIn profile image could not be retrieved. Replace it with an authorized photo supplied by Sabah, and add the file locally before adding its image element to the About section.
+The founder panel currently uses Sabah’s initials. The supplied image asset is the existing logo, and LinkedIn requires sign-in to retrieve the profile portrait in this workflow. Replace the initials with a photo Sabah has approved for the website when one is available.
 
 ## Build notes
 
