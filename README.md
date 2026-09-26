@@ -6,7 +6,8 @@ Static, mobile-first marketing site for Sabah Electric Inc., led by electrician 
 
 - **index.html** — page content and contact form fields.
 - **styles.css** — visual system, responsive layouts and reduced-motion support.
-- **script.js** — mobile menu, scroll progress, section reveals and form state.
+- **script.js** — mobile menu, scroll progress, section reveals, review cards and form state.
+- **reviews.js** — approved client reviews and optional project photo references.
 - **assets/** — original vector mark and generated illustrative photography.
 - **thanks.html** — post-submission confirmation page.
 
@@ -20,12 +21,18 @@ The form currently posts to FormSubmit at sabah@sabahelectric.ca. Before sharing
 
 1. Make sure sabah@sabahelectric.ca is a working inbox or forwards to one.
 2. Submit a test inquiry from the published page.
-3. Open the first FormSubmit verification email delivered to that inbox and activate the form.
-4. Test again and confirm the reply-to address is the customer’s email.
+3. Open the first FormSubmit verification email delivered to that inbox and activate the form. Until it is activated, FormSubmit holds submissions rather than forwarding them.
+4. Test both the project inquiry and review form, and confirm the reply-to address is the customer’s email.
 
 FormSubmit handles the form and emails submissions to the inbox; it is a third-party service. Do not request sensitive customer information in this public form. The form keeps its built-in spam challenge enabled and includes a hidden honeypot field.
 
 When a custom domain is connected, update the form’s _next address in index.html to the new domain’s thanks.html URL, then test again.
+
+## Reviews and project photos
+
+The site includes a review submission form with star rating, optional email and optional project photo uploads. FormSubmit sends those submissions to sabah@sabahelectric.ca for approval; GitHub Pages is static, so reviews are not published automatically.
+
+After a review is confirmed, add it to `reviews.js` and place approved photos in `assets/reviews/`. Each review can include the client’s first initial, star rating, comment, confirmed-client label, project type and a small photo gallery. Do not publish a client’s review or photos without their consent.
 
 ## Updating business details
 

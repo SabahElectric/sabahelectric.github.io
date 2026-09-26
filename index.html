@@ -13,6 +13,7 @@
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="preload" as="image" href="assets/hero-industrial.webp" fetchpriority="high">
     <link rel="stylesheet" href="styles.css">
+    <script src="reviews.js" defer></script>
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -31,6 +32,7 @@
         <a href="#work">Sectors</a>
         <a href="#about">About</a>
         <a href="#approach">How we work</a>
+        <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
       </nav>
       <a class="header-phone" href="tel:+16472909441" aria-label="Call Sabah Electric at 647 290 9441">
@@ -165,6 +167,54 @@
         </div>
       </section>
 
+      <section class="reviews section-paper" id="reviews" aria-labelledby="reviews-title">
+        <div class="shell">
+          <div class="reviews__header" data-reveal>
+            <div>
+              <p class="eyebrow"><span class="eyebrow-dot"></span> Client notes</p>
+              <h2 id="reviews-title">Good work<br><span>gets remembered.</span></h2>
+            </div>
+            <div class="reviews__intro">
+              <p>Read verified notes from people who have worked with Sabah Electric, or share your own experience after the job is complete.</p>
+              <a class="button button--dark" href="#review-form">Leave a review <span class="button-arrow" aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <div class="reviews__layout">
+            <div class="reviews-list" id="reviews-list" aria-live="polite">
+              <div class="reviews-empty" data-reveal>
+                <span class="reviews-empty__mark" aria-hidden="true">SE</span>
+                <div>
+                  <p class="reviews-empty__label">The first note is next</p>
+                  <h3>Client reviews will appear here.</h3>
+                  <p>After a review is submitted and confirmed, it can be added here with the client’s first initial, star rating, comment and optional project photos.</p>
+                </div>
+              </div>
+            </div>
+            <div class="review-form-card" id="review-form" data-reveal>
+              <p class="eyebrow eyebrow--light"><span class="eyebrow-dot"></span> Share the experience</p>
+              <h3>Leave a review.</h3>
+              <p class="review-form-card__intro">Tell us how the work went. Reviews and photos are checked before they appear on the site.</p>
+              <form class="review-form" action="https://formsubmit.co/sabah@sabahelectric.ca" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_subject" value="New client review — Sabah Electric Inc.">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="https://sabahelectric.github.io/thanks.html?review=1">
+                <input type="text" name="_honey" class="form-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <label class="field"><span>Your name <b>*</b></span><input name="name" type="text" autocomplete="name" placeholder="Name" required></label>
+                <div class="form-row">
+                  <label class="field"><span>Rating <b>*</b></span><select name="rating" required><option value="" disabled selected>Select stars</option><option>5 stars</option><option>4 stars</option><option>3 stars</option><option>2 stars</option><option>1 star</option></select></label>
+                  <label class="field"><span>Email <small>optional</small></span><input name="email" type="email" autocomplete="email" placeholder="you@example.com"></label>
+                </div>
+                <label class="field field--message"><span>Your review <b>*</b></span><textarea name="review" rows="5" placeholder="Tell us about the work and your experience…" required></textarea></label>
+                <label class="field field--file"><span>Project photos <small>optional · up to 10 MB total</small></span><input name="project-photos" type="file" accept="image/png,image/jpeg,image/webp" multiple></label>
+                <label class="review-consent"><input name="publish-consent" type="checkbox" value="I agree to publish this review and selected photos" required><span>I agree Sabah Electric may publish this review and any selected project photos.</span></label>
+                <p class="review-form__privacy">Please don’t include private contact details, payment information or other sensitive information in the review.</p>
+                <button class="button button--red form-submit" type="submit">Submit for review <span class="button-arrow" aria-hidden="true">↗</span></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="contact section-dark" id="contact" aria-labelledby="contact-title">
         <div class="contact__glow" aria-hidden="true"></div>
         <div class="shell contact__grid">
@@ -210,7 +260,7 @@
         <div class="footer-main">
           <a class="brand brand--footer" href="#top" aria-label="Sabah Electric Inc., back to top"><img class="brand-mark" src="assets/bolt-mark.svg" alt="" width="42" height="42"><span class="brand-name"><strong>SABAH</strong><span>ELECTRIC INC.</span></span></a>
           <p class="footer-statement">Electrical subcontracting<br>across Peel Region &amp; beyond.</p>
-          <div class="footer-links"><a href="#work">Sectors</a><a href="#about">About</a><a href="#contact">Contact</a><a href="https://www.linkedin.com/in/sabah-toma-922b213a3/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
+          <div class="footer-links"><a href="#work">Sectors</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a><a href="https://www.linkedin.com/in/sabah-toma-922b213a3/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
         </div>
         <div class="footer-bottom"><span>© <span id="current-year">2026</span> Sabah Electric Inc.</span><span>Led by electrician Sabah Toma</span><a href="#top">Back to top ↑</a></div>
       </div>
