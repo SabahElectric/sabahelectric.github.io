@@ -3,6 +3,46 @@
 
   document.documentElement.classList.add("has-js");
 
+  var viewModeRoot = document.documentElement;
+  var viewModeMeta = document.querySelector('meta[name="viewport"]');
+  var viewModeButtons = document.querySelectorAll("[data-view-mode]");
+  var viewModeStatus = document.getElementById("view-mode-status");
+  var viewModeStorageKey = "sabah-electric-view-mode";
+  var viewModeLabels = { auto: "Automatic", mobile: "Mobile", desktop: "Computer" };
+
+  function readViewMode() {
+    try {
+      var savedMode = window.localStorage.getItem(viewModeStorageKey);
+      return Object.prototype.hasOwnProperty.call(viewModeLabels, savedMode) ? savedMode : "auto";
+    } catch (error) {
+      return "auto";
+    }
+  }
+
+  function applyViewMode(mode, persist) {
+    if (!Object.prototype.hasOwnProperty.call(viewModeLabels, mode)) mode = "auto";
+    viewModeRoot.classList.toggle("view-mobile", mode === "mobile");
+    viewModeRoot.classList.toggle("view-desktop", mode === "desktop");
+    if (viewModeMeta) {
+      viewModeMeta.setAttribute("content", mode === "desktop" ? "width=1280, initial-scale=1" : "width=device-width, initial-scale=1");
+    }
+    viewModeButtons.forEach(function (button) {
+      button.setAttribute("aria-pressed", String(button.getAttribute("data-view-mode") === mode));
+    });
+    if (viewModeStatus) viewModeStatus.textContent = viewModeLabels[mode];
+    if (persist) {
+      try { window.localStorage.setItem(viewModeStorageKey, mode); } catch (error) { /* Private browsing may block storage. */ }
+    }
+    if (typeof closeMenu === "function") closeMenu(false);
+  }
+
+  applyViewMode(readViewMode(), false);
+  viewModeButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      applyViewMode(button.getAttribute("data-view-mode"), true);
+    });
+  });
+
   var menuButton = document.querySelector(".menu-toggle");
   var navigation = document.querySelector(".site-nav");
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
