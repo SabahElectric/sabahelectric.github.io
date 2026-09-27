@@ -5,7 +5,7 @@ Static, mobile-first marketing site for Sabah Electric Inc., led by electrician 
 ## Files
 
 - **index.html** — page content and contact form fields.
-- **styles.css** — visual system, responsive layouts and reduced-motion support.
+- **styles.css** — visual system, responsive layouts, image galleries and reduced-motion support.
 - **script.js** — mobile menu, scroll progress, section reveals, review cards and form state.
 - **reviews.js** — approved client reviews and optional project photo references.
 - **assets/** — original vector mark and generated illustrative photography.
@@ -33,6 +33,10 @@ When a custom domain is connected, update the form’s _next address in index.ht
 The site includes a review submission form with star rating, optional email and optional project photo uploads. FormSubmit sends those submissions to sabah@sabahelectric.ca for approval; GitHub Pages is static, so reviews are not published automatically.
 
 After a review is confirmed, add it to `reviews.js` and place approved photos in `assets/reviews/`. Each review can include the client’s first initial, star rating, comment, confirmed-client label, project type and a small photo gallery. Do not publish a client’s review or photos without their consent.
+
+## Project galleries and profile photo
+
+The Industrial, Commercial and Residential cards begin with their original illustrative service image, then automatically rotate through the supplied Sabah Electric project photos. The gallery pauses while someone hovers or focuses a card, and it respects reduced-motion preferences. The person-behind-the-work card uses the supplied blue-shirt portrait first and flips to the work-suit portrait on hover or focus.
 
 ## Updating business details
 

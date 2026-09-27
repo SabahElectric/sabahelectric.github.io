@@ -47,6 +47,123 @@
   var navigation = document.querySelector(".site-nav");
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+  var sectorGallerySlides = {
+    industrial: [
+      { src: "assets/industrial.webp", alt: "Illustrative industrial scene: electrician reviewing equipment in a modern plant" },
+      { src: "assets/project-gallery/industrial-panel-open.jpg", alt: "Open industrial distribution panel with organized feeders", position: "50% 43%" },
+      { src: "assets/project-gallery/industrial-equipment-room.jpg", alt: "Industrial electrical equipment installation", position: "50% 43%" },
+      { src: "assets/project-gallery/industrial-conduit-runs.jpg", alt: "Conduit runs prepared for an industrial electrical installation" },
+      { src: "assets/project-gallery/industrial-feeder-cables.jpg", alt: "Large feeder cables inside industrial switchgear", position: "50% 45%" },
+      { src: "assets/project-gallery/industrial-conduit-bends.jpg", alt: "Conduit bends and layout for an industrial service" },
+      { src: "assets/project-gallery/industrial-conduit-room.jpg", alt: "Industrial conduit and distribution equipment" },
+      { src: "assets/project-gallery/industrial-transformer.jpg", alt: "Transformer connections and phase conductors" },
+      { src: "assets/project-gallery/industrial-transformer-connections.jpg", alt: "Transformer terminal connections", position: "50% 42%" },
+      { src: "assets/project-gallery/industrial-conduit-installation.jpg", alt: "Conduit installation in an electrical room", position: "50% 42%" }
+    ],
+    commercial: [
+      { src: "assets/commercial.webp", alt: "Illustrative commercial scene: electrician installing lighting infrastructure in a modern fit-out" },
+      { src: "assets/project-gallery/commercial-disconnect-bank.jpg", alt: "Commercial disconnect switches mounted on a block wall" },
+      { src: "assets/project-gallery/commercial-switchgear.jpg", alt: "Multiple commercial disconnects and service equipment", position: "50% 42%" },
+      { src: "assets/project-gallery/commercial-main-panel.jpg", alt: "Main electrical panel installation", position: "50% 42%" },
+      { src: "assets/project-gallery/commercial-ceiling-unit.jpg", alt: "Overhead commercial electrical equipment and conduit", position: "50% 48%" },
+      { src: "assets/project-gallery/commercial-panel-room.jpg", alt: "Commercial electrical panel room" },
+      { src: "assets/project-gallery/commercial-electrical-cabinet.jpg", alt: "Commercial electrical cabinet and conduit", position: "50% 42%" },
+      { src: "assets/project-gallery/commercial-wired-panel.jpg", alt: "Wired commercial electrical panel with labeled conductors", position: "50% 38%" },
+      { src: "assets/project-gallery/commercial-ups-room.jpg", alt: "UPS and distribution equipment in a computer room", position: "50% 42%" },
+      { src: "assets/project-gallery/commercial-service-room.jpg", alt: "Commercial electrical service room" }
+    ],
+    residential: [
+      { src: "assets/residential.webp", alt: "Illustrative residential scene: electrician checking a closed electrical panel in a home" },
+      { src: "assets/project-gallery/residential-front-lights.jpg", alt: "Residential home with exterior lighting at dusk" },
+      { src: "assets/project-gallery/residential-side-lights.jpg", alt: "Residential side elevation with exterior lighting", position: "58% 50%" },
+      { src: "assets/project-gallery/residential-home-dusk.jpg", alt: "Residential home with warm exterior lighting at dusk" },
+      { src: "assets/project-gallery/residential-home-front.jpg", alt: "Residential home front with illuminated architectural details" },
+      { src: "assets/project-gallery/residential-garage-front.jpg", alt: "Residential garage and front walkway with exterior lighting" },
+      { src: "assets/project-gallery/residential-front-angle.jpg", alt: "Residential brick home with exterior lighting", position: "50% 46%" },
+      { src: "assets/project-gallery/residential-night-lights.jpg", alt: "Residential home with exterior lighting at night" },
+      { src: "assets/project-gallery/residential-porch-night.jpg", alt: "Residential porch and front walk illuminated at night" }
+    ]
+  };
+
+  function initSectorGalleries() {
+    document.querySelectorAll(".sector-gallery[data-gallery]").forEach(function (gallery) {
+      var slides = sectorGallerySlides[gallery.getAttribute("data-gallery")];
+      var image = gallery.querySelector("[data-gallery-image]");
+      var current = gallery.querySelector("[data-gallery-current]");
+      var total = gallery.querySelector("[data-gallery-total]");
+      if (!slides || slides.length < 2 || !image || !current || !total) return;
+
+      var state = { index: 0, timer: null, visible: true, paused: false };
+
+      function stop() {
+        if (state.timer) window.clearInterval(state.timer);
+        state.timer = null;
+      }
+
+      function preload(index) {
+        var nextImage = new window.Image();
+        nextImage.src = slides[index].src;
+      }
+
+      function showSlide(index, animate) {
+        state.index = index % slides.length;
+        var slide = slides[state.index];
+        image.alt = slide.alt;
+        image.src = slide.src;
+        if (slide.position) image.style.objectPosition = slide.position;
+        else image.style.removeProperty("object-position");
+        current.textContent = String(state.index + 1).padStart(2, "0");
+        total.textContent = "/ " + String(slides.length).padStart(2, "0");
+        image.classList.remove("is-changing");
+        if (animate) window.requestAnimationFrame(function () { image.classList.add("is-changing"); });
+        preload((state.index + 1) % slides.length);
+      }
+
+      function start() {
+        if (state.timer || state.paused || !state.visible || document.hidden || reducedMotion.matches) return;
+        state.timer = window.setInterval(function () {
+          showSlide(state.index + 1, true);
+        }, 5200);
+      }
+
+      function pause() {
+        state.paused = true;
+        stop();
+      }
+
+      function resume() {
+        state.paused = false;
+        start();
+      }
+
+      showSlide(0, false);
+      gallery.addEventListener("mouseenter", pause);
+      gallery.addEventListener("mouseleave", resume);
+      gallery.addEventListener("focusin", pause);
+      gallery.addEventListener("focusout", function (event) {
+        if (!gallery.contains(event.relatedTarget)) resume();
+      });
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) stop();
+        else start();
+      });
+
+      if ("IntersectionObserver" in window) {
+        state.visible = false;
+        var galleryObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            state.visible = entry.isIntersecting;
+            if (state.visible) start();
+            else stop();
+          });
+        }, { threshold: 0.2 });
+        galleryObserver.observe(gallery);
+      } else {
+        start();
+      }
+    });
+  }
+
   function closeMenu(returnFocus) {
     if (!menuButton || !navigation) return;
     menuButton.setAttribute("aria-expanded", "false");
@@ -110,6 +227,7 @@
     window.requestAnimationFrame(updateScrollState);
   }, { passive: true });
   updateScrollState();
+  initSectorGalleries();
 
   var revealItems = document.querySelectorAll("[data-reveal]");
   if (reducedMotion.matches || !("IntersectionObserver" in window)) {
