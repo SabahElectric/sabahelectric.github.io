@@ -8,12 +8,12 @@ Static, mobile-first marketing site for Sabah Electric Inc., led by electrician 
 - **styles.css** — visual system, responsive layouts, image galleries and reduced-motion support.
 - **script.js** — mobile menu, scroll progress, section reveals, review cards and form state.
 - **reviews.js** — approved client reviews and optional project photo references.
-- **assets/** — original vector mark and generated illustrative photography.
+- **assets/** — original vector mark, generated illustrative service images, and real project and profile photos in `assets/project-gallery/`.
 - **thanks.html** — post-submission confirmation page.
 
 ## Publish with GitHub Pages
 
-In the repository, open **Settings → Pages**, select **Deploy from a branch**, choose **main** and **/ (root)**, and save. GitHub Pages may take a few minutes to publish the first build. The site address for this repository should be https://sabahelectric.github.io/.
+In the repository, open **Settings → Pages**, select **Deploy from a branch**, choose **main** and **/ (root)**, and save. GitHub Pages may take a few minutes to publish the first build. The site is live at https://sabahelectric.github.io/.
 
 ## Contact form setup
 
@@ -26,7 +26,7 @@ The form currently posts to FormSubmit at sabah@sabahelectric.ca. Before sharing
 
 FormSubmit handles the form and emails submissions to the inbox; it is a third-party service. Do not request sensitive customer information in this public form. The form keeps its built-in spam challenge enabled and includes a hidden honeypot field.
 
-When a custom domain is connected, update the form’s _next address in index.html to the new domain’s thanks.html URL, then test again.
+When a custom domain is connected, update both `_next` addresses in index.html (project inquiry and review form) to the new domain’s thanks.html URL, then test again.
 
 ## Reviews and project photos
 
@@ -40,13 +40,12 @@ The Industrial, Commercial and Residential cards begin with their original illus
 
 ## Updating business details
 
-Edit the text and phone/email details in index.html. Replace service images in assets/ using the same filenames to preserve the layout. Keep the visual service photos described as illustrative until actual Sabah Electric project photos are available.
-
-The founder panel currently uses Sabah’s initials. The supplied image asset is the existing logo, and LinkedIn requires sign-in to retrieve the profile portrait in this workflow. Replace the initials with a photo Sabah has approved for the website when one is available.
+Edit the text and phone/email details in index.html. Replace service images in assets/ using the same filenames to preserve the layout. Add project photos to `assets/project-gallery/` and list them in the matching gallery in script.js.
 
 ## Build notes
 
 - No JavaScript framework, server, or build step is required.
 - The SVG lightning mark was drawn for the site and uses the red descending-bolt direction in the supplied logo reference.
-- All generated job-site images are illustrative, not documentation of completed Sabah Electric projects.
+- The hero image and the first image on each service card are generated and labelled illustrative; the photos in `assets/project-gallery/` are real Sabah Electric work.
+- CSS and JS links in index.html and thanks.html carry a `?v=` version. Change it whenever those files change so visitors’ browsers load the new version.
 - GitHub Pages on the free plan requires the source repository to be public.
